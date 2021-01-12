@@ -1,6 +1,6 @@
 # Motivation
 
-I wanted to control a PTZ synology surveillance station camera via homebridge.
+I wanted to control an Avaya HC020 USB Web Camera (HuddleCamHD Pro) via PTZOptics Camera Control App via homebridge.
 
 # Example config.json
 
@@ -12,50 +12,20 @@ I wanted to control a PTZ synology surveillance station camera via homebridge.
         "accessories": [
             {
                 "type": "Switch",
-                "displayName": "on",
+                "displayName": "WEBCAM_PRESET_1",
                 "on": "FALSE",
-                "name": "Man Cave Camera - On",
-                "state_cmd": "/homebridge/Cmd4Scripts/camera-control.sh",
+                "name": "Man Cave Webcam - Whiteboard",
+                "state_cmd": "/homebridge/Cmd4Scripts/WebCameraControl.sh",
                 "polling": true,
                 "interval": 5,
                 "timeout": 60000
             },
             {
                 "type": "Switch",
-                "displayName": "off",
+                "displayName": "WEBCAM_PRESET_2",
                 "on": "FALSE",
-                "name": "Man Cave Camera - Off",
-                "state_cmd": "/homebridge/Cmd4Scripts/camera-control.sh",
-                "polling": true,
-                "interval": 5,
-                "timeout": 60000
-            },
-            {
-                "type": "Switch",
-                "displayName": "door",
-                "on": "FALSE",
-                "name": "Man Cave Camera - Door",
-                "state_cmd": "/homebridge/Cmd4Scripts/camera-control.sh",
-                "polling": true,
-                "interval": 5,
-                "timeout": 60000
-            },
-            {
-                "type": "Switch",
-                "displayName": "battery",
-                "on": "FALSE",
-                "name": "Man Cave Camera - Battery",
-                "state_cmd": "/homebridge/Cmd4Scripts/camera-control.sh",
-                "polling": true,
-                "interval": 5,
-                "timeout": 60000
-            },
-            {
-                "type": "Switch",
-                "displayName": "privacy",
-                "on": "FALSE",
-                "name": "Man Cave Camera - Privacy",
-                "state_cmd": "/homebridge/Cmd4Scripts/camera-control.sh",
+                "name": "Man Cave Webcam - Wall",
+                "state_cmd": "/homebridge/Cmd4Scripts/WebCameraControl.sh",
                 "polling": true,
                 "interval": 5,
                 "timeout": 60000
@@ -65,28 +35,19 @@ I wanted to control a PTZ synology surveillance station camera via homebridge.
 ...
 ```
 
-# Example camera-control.sh
+# Example WebCameraControl.sh
 
 Change:
 ```
-./camera-control.sh CAMERA_ID "$2"
+curl "http://IP_ADDRESS:PORT/cam/recallPreset?callSpeed=1&presetNum=$OUTPUT"
 ```
 
-to (your camera id - discovered using `camera-control.sh 1 list`):
+to (your host machine's IP and web server port - configured using PTZOptics Camera Control App):
 ```
-./camera-control.sh 5 "$2"
-```
-
-# Example camera-control.sh
-
-Numerous changes are required to:
-```
-- PRESET_ID
-- WEBAPIURL
-- ACCOUNT
-- PASSWD
-- COOKIE_PATH
+curl "http://192.168.0.1:8080/cam/recallPreset?callSpeed=1&presetNum=$OUTPUT"
 ```
 
 # References
-https://forum.pimatic.org/topic/382/controlling-a-camera-of-surveillance-station-with-web-api-of-the-synology-diskstation/2
+https://ptzoptics.com/ptz-app/
+https://huddlecamhd.com/pro/
+https://www.avaya.com/en/devices-and-phones/huddle-rooms/camera-hc020/
