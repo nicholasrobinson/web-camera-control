@@ -39,11 +39,13 @@ I wanted to control an Avaya HC020 USB Web Camera (HuddleCamHD Pro) via PTZOptic
 
 Change:
 ```
+curl "http://IP_ADDRESS:PORT/cam/connect?camNum=0"
 curl "http://IP_ADDRESS:PORT/cam/recallPreset?callSpeed=1&presetNum=$OUTPUT"
 ```
 
 to (your host machine's IP and web server port - configured using PTZOptics Camera Control App):
 ```
+curl "http://192.168.0.1:8080/cam/connect?camNum=0"
 curl "http://192.168.0.1:8080/cam/recallPreset?callSpeed=1&presetNum=$OUTPUT"
 ```
 

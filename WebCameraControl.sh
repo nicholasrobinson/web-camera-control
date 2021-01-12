@@ -17,6 +17,7 @@ if [ "$1" = "Set" ]; then
          WORDTOREMOVE="WEBCAM_PRESET_"
          OUTPUT=${INPUT//$WORDTOREMOVE/}
          # Execute cURL
+         curl "http://IP_ADDRESS:PORT/cam/connect?camNum=0"
          curl "http://IP_ADDRESS:PORT/cam/recallPreset?callSpeed=1&presetNum=$OUTPUT"
          exit $?
       else
